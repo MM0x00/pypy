@@ -1,11 +1,9 @@
-FROM ubuntu:14.04.2
+FROM pypy:3
 
-MAINTAINER support@shiyanlou.com
+RUN mkdir -p /usr/src/app
+WORKDIR /usr/src/app
 
-RUN useradd -m trylab
+ONBUILD COPY requirements.txt /usr/src/app/
+ONBUILD RUN pip install -r requirements.txt
 
-USER trylab
-
-WORKDIR /home/trylab
-
-CMD echo "shiyanlou trylab." | wc -
+ONBUILD COPY . /usr/src/app
